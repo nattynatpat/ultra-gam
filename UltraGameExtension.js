@@ -1,9 +1,10 @@
-(function(ext) {
+
+    var ext = {}
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
 
     // Define the extension metadata
-    ext.getInfo = function() {
+    window.getInfo = function() {
         return {
             id: 'ultragame',
             name: 'Ultra Game',
@@ -85,19 +86,19 @@
 
     // Block implementations
 
-    ext.ug_userexists = function(args, util) {
+    window.ug_userexists = function(args, util) {
         return fetch("https://ultra-game.fun/api/find?username=" + args.USERNAME)
             .then(response => response.json())
             .then(data => data.response);
     };
 
-    ext.ug_getbio = function(args, util) {
+    window.ug_getbio = function(args, util) {
         return fetch("https://ultra-game.fun/api/getbio?username=" + args.USERNAME)
             .then(response => response.json())
             .then(data => data.response ? data.data : "404 Not found");
     };
 
-    ext.ug_getbadges = function(args, util) {
+    window.ug_getbadges = function(args, util) {
         return fetch("https://ultra-game.fun/api/find?username=" + args.USERNAME)
             .then(response => response.json())
             .then(data => {
@@ -111,7 +112,7 @@
             });
     };
 
-    ext.ug_signup = function(args, util) {
+    window.ug_signup = function(args, util) {
         return fetch("https://ultra-game.fun/api/signup?username=" + args.USERNAME + "&password=" + args.PASSWORD)
             .then(response => response.json())
             .catch(err => {
@@ -119,7 +120,7 @@
             });
     };
 
-    ext.ug_chat = function(args, util) {
+    window.ug_chat = function(args, util) {
         const socket = io('https://ultra-game.fun');
         socket.emit('message', {
             content: args.CONTENT,
@@ -130,5 +131,4 @@
 
     // Register the extension
     Scratch.extensions.register(ext);
-})(window);
 
