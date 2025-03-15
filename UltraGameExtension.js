@@ -1,6 +1,8 @@
 (function(ext) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
+
+    // Define the extension metadata
     ext.getInfo = function() {
         return {
             id: 'ultragame',
@@ -58,9 +60,30 @@
                         }
                     }
                 },
+                {
+                    opcode: 'ug_chat',
+                    blockType: BlockType.COMMAND,
+                    text: 'Chat in the chat! Username: [USERNAME] Password: [PASSWORD] Content: [CONTENT]',
+                    arguments: {
+                        USERNAME: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        },
+                        PASSWORD: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        },
+                        CONTENT: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ''
+                        }
+                    }
+                }
             ]
         };
     };
+
+    // Block implementations
 
     ext.ug_userexists = function(args, util) {
         return fetch("https://ultra-game.fun/api/find?username=" + args.USERNAME)
@@ -95,5 +118,17 @@
                 console.error('Signup failed:', err);
             });
     };
+
+    ext.ug_chat = function(args, util) {
+        const socket = io('https://ultra-game.fun');
+        socket.emit('message', {
+            content: args.CONTENT,
+            username: args.USERNAME,
+            password: args.PASSWORD
+        });
+    };
+
+    // Register the extension
     Scratch.extensions.register(ext);
 })(window);
+
