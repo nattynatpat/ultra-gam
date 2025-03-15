@@ -1,21 +1,37 @@
-class HelloWorld {
-  getInfo() {
-    return {
-      id: 'helloworld',
-      name: 'It works!',
-      blocks: [
-        {
-          opcode: 'hello',
-          blockType: Scratch.BlockType.REPORTER,
-          text: 'Hello!'
-        }
-      ]
-    };
-  }
+class UltraGameExtension {
+    constructor() {
+        this.id = 'ultra_game_extension';
+        this.name = 'Ultra Game Extension';
+    }
 
-  hello() {
-    return 'World!';
-  }
+    getInfo() {
+        return {
+            id: this.id,
+            name: this.name,
+            blocks: [
+                {
+                    opcode: 'startGame',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'start ultra game',
+                    arguments: {}
+                },
+                {
+                    opcode: 'stopGame',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'stop ultra game',
+                    arguments: {}
+                }
+            ]
+        };
+    }
+
+    startGame() {
+        console.log('Starting the ultra game...');
+    }
+
+    stopGame() {
+        console.log('Stopping the ultra game...');
+    }
 }
 
-Scratch.extensions.register(new HelloWorld());
+Scratch.extensions.register(new UltraGameExtension());
