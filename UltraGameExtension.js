@@ -58,25 +58,6 @@
                         }
                     }
                 },
-                {
-                    opcode: 'ug_chat',
-                    blockType: BlockType.COMMAND,
-                    text: 'Chat in the chat! Username: [USERNAME] Password: [PASSWORD] Content: [CONTENT]',
-                    arguments: {
-                        USERNAME: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        },
-                        PASSWORD: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        },
-                        CONTENT: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ''
-                        }
-                    }
-                }
             ]
         };
     };
